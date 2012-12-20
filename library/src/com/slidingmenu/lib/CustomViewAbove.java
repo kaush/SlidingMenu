@@ -530,6 +530,7 @@ public class CustomViewAbove extends ViewGroup {
 		} else {
 			final float pageDelta = (float) Math.abs(dx) / (width + mShadowWidth);
 			duration = (int) ((pageDelta + 1) * 100);
+			duration = MAX_SETTLE_DURATION;
 		}
 		duration = Math.min(duration, MAX_SETTLE_DURATION);
 
