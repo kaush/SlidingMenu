@@ -12,3 +12,4 @@ gen
 .metadata/
 .metadata
 *.project
+library/local.properties
