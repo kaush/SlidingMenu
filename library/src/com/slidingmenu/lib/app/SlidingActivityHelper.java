@@ -17,15 +17,15 @@ public class SlidingActivityHelper {
 	private Activity mActivity;
 
 	private SlidingMenu mSlidingMenu;
-	
+
 	private View mViewAbove;
-	
+
 	private View mViewBehind;
-	
+
 	private boolean mBroadcasting = false;
 
 	private boolean mOnPostCreateCalled = false;
-	
+
 	private boolean mEnableSlide = true;
 
 	/**
@@ -103,7 +103,7 @@ public class SlidingActivityHelper {
 
 	/**
 	 * Finds a view that was identified by the id attribute from the XML that was processed in onCreate(Bundle).
-	 * 
+	 *
 	 * @param id the resource id of the desired view
 	 * @return The view if found or null otherwise.
 	 */
@@ -120,7 +120,7 @@ public class SlidingActivityHelper {
 	/**
 	 * Called to retrieve per-instance state from an activity before being killed so that the state can be
 	 * restored in onCreate(Bundle) or onRestoreInstanceState(Bundle) (the Bundle populated by this method
-	 * will be passed to both). 
+	 * will be passed to both).
 	 *
 	 * @param outState Bundle in which to place your saved state.
 	 */
@@ -206,12 +206,30 @@ public class SlidingActivityHelper {
 	 * @param event the event
 	 * @return true, if successful
 	 */
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && mSlidingMenu.isBehindShowing()) {
-			showAbove();
-			return true;
-		}
-		return false;
-	}
+	//public boolean onKeyUp(int keyCode, KeyEvent event) {
+	//	if (keyCode == KeyEvent.KEYCODE_BACK && mSlidingMenu.isBehindShowing()) {
+	//		showAbove();
+	//		return true;
+	//	}
+	//	return false;
+	//}
 
+  public boolean onKeyUp(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK)
+    {
+      if (mSlidingMenu.isBehindShowing())
+      {
+        // Back pressed while sliding menu is visible.  Exit the app.
+        mActivity.finish();
+      }
+      else
+      {
+        // Back pressed while sliding menu is not visible.  Bring it into view.
+        // The user can immediately press back again to exit the app (the branch above).
+        showBehind();
+      }
+      return true;
+    }
+    return false;
+  }
 }
